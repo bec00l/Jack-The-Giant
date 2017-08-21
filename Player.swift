@@ -8,10 +8,18 @@
 
 import SpriteKit
 
+struct ColliderType {
+    static let Player : UInt32 = 0
+    static let Cloud : UInt32 = 1
+    static let DarkCloudAndCollectibles : UInt32 = 2
+}
+
 class Player  : SKSpriteNode {
     private var textureAtlas = SKTextureAtlas()
     private var playerAnimation = [SKTexture]()
     private var animatePlayerAction = SKAction()
+    let playerWidthOffset : CGFloat = 50
+    let playerHeightOffset : CGFloat = 5
     
     func movePlayer(moveLeft: Bool){
         if moveLeft {
@@ -28,8 +36,16 @@ class Player  : SKSpriteNode {
             let name = "Player \(i)"
             playerAnimation.append(SKTexture(imageNamed: name))
         }
-        
         animatePlayerAction = SKAction.animate(with: playerAnimation, timePerFrame: 0.08, resize: true, restore: false)
+        
+        //add physics
+        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width : self.size.width - playerWidthOffset, height : self.size.height - playerHeightOffset))
+        self.physicsBody?.affectedByGravity = true
+        self.physicsBody?.allowsRotation = false
+        self.physicsBody?.restitution = 0
+        self.physicsBody?.categoryBitMask = ColliderType.Player
+        self.physicsBody?.collisionBitMask = ColliderType.Cloud
+        self.physicsBody?.contactTestBitMask = ColliderType.DarkCloudAndCollectibles
     }
     
     func animatePlayer(moveLeft : Bool) {
