@@ -2,4 +2,99 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GameplayScene.swift"
+            timestampString = "525026803.694202"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "GameplayScene"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jack_the_Giant.GameplayScene.canMove.getter : Swift.Bool"
+                  moduleName = "Jack the Giant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/David/iphone%20projects/Jack%20the%20Giant/GameplayScene.swift"
+                  timestampString = "525026804.551382"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "18">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jack_the_Giant.GameplayScene.canMove.setter : Swift.Bool"
+                  moduleName = "Jack the Giant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/David/iphone%20projects/Jack%20the%20Giant/GameplayScene.swift"
+                  timestampString = "525026804.553736"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "31">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jack_the_Giant.GameplayScene.init (size : __C.CGSize) -&gt; Jack_the_Giant.GameplayScene"
+                  moduleName = "Jack the Giant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/David/iphone%20projects/Jack%20the%20Giant/GameplayScene.swift"
+                  timestampString = "525026804.55637"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "45">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jack_the_Giant.GameplayScene.init () -&gt; Jack_the_Giant.GameplayScene"
+                  moduleName = "Jack the Giant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/David/iphone%20projects/Jack%20the%20Giant/GameplayScene.swift"
+                  timestampString = "525026804.558505"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "35">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Jack_the_Giant.GameplayScene.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;Jack_the_Giant.GameplayScene&gt;"
+                  moduleName = "Jack the Giant"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/David/iphone%20projects/Jack%20the%20Giant/GameplayScene.swift"
+                  timestampString = "525026804.560591"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "39">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
