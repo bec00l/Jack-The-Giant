@@ -61,6 +61,7 @@
 		6339732D1F4B09F50038C45E /* Start Game Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 633973031F4B09F50038C45E /* Start Game Button.png */; };
 		633973301F4B0BDC0038C45E /* GameplayScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6339732F1F4B0BDC0038C45E /* GameplayScene.sks */; };
 		633973341F4B117E0038C45E /* GameplayScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633973331F4B117E0038C45E /* GameplayScene.swift */; };
+		633973371F4B15090038C45E /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633973361F4B15090038C45E /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		633973031F4B09F50038C45E /* Start Game Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Start Game Button.png"; sourceTree = "<group>"; };
 		6339732F1F4B0BDC0038C45E /* GameplayScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameplayScene.sks; sourceTree = "<group>"; };
 		633973331F4B117E0038C45E /* GameplayScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameplayScene.swift; sourceTree = "<group>"; };
+		633973361F4B15090038C45E /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,6 +375,7 @@
 		633973311F4B11400038C45E /* GameClasses */ = {
 			isa = PBXGroup;
 			children = (
+				633973351F4B14E20038C45E /* Player Class */,
 				633973321F4B115A0038C45E /* SceneClasses */,
 			);
 			name = GameClasses;
@@ -384,6 +387,14 @@
 				633973331F4B117E0038C45E /* GameplayScene.swift */,
 			);
 			name = SceneClasses;
+			sourceTree = "<group>";
+		};
+		633973351F4B14E20038C45E /* Player Class */ = {
+			isa = PBXGroup;
+			children = (
+				633973361F4B15090038C45E /* Player.swift */,
+			);
+			name = "Player Class";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -571,6 +582,7 @@
 				633973341F4B117E0038C45E /* GameplayScene.swift in Sources */,
 				633972911F4B09090038C45E /* GameScene.swift in Sources */,
 				633972931F4B09090038C45E /* GameViewController.swift in Sources */,
+				633973371F4B15090038C45E /* Player.swift in Sources */,
 				6339728B1F4B09090038C45E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
