@@ -65,6 +65,8 @@
 		6339734A1F4B2EFF0038C45E /* Player 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 633973421F4B2EFF0038C45E /* Player 8.png */; };
 		6339734D1F4B56A40038C45E /* BGClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339734C1F4B56A40038C45E /* BGClass.swift */; };
 		633973501F4B6B170038C45E /* CloudController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6339734F1F4B6B170038C45E /* CloudController.swift */; };
+		633973521F4CFA090038C45E /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 633973511F4CFA090038C45E /* MainMenu.sks */; };
+		633973541F4D027E0038C45E /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633973531F4D027E0038C45E /* MainMenuScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,8 @@
 		633973421F4B2EFF0038C45E /* Player 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Player 8.png"; sourceTree = "<group>"; };
 		6339734C1F4B56A40038C45E /* BGClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGClass.swift; sourceTree = "<group>"; };
 		6339734F1F4B6B170038C45E /* CloudController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudController.swift; sourceTree = "<group>"; };
+		633973511F4CFA090038C45E /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
+		633973531F4D027E0038C45E /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				6339732F1F4B0BDC0038C45E /* GameplayScene.sks */,
+				633973511F4CFA090038C45E /* MainMenu.sks */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				633973331F4B117E0038C45E /* GameplayScene.swift */,
+				633973531F4D027E0038C45E /* MainMenuScene.swift */,
 			);
 			name = SceneClasses;
 			sourceTree = "<group>";
@@ -555,6 +561,7 @@
 				633973091F4B09F50038C45E /* Life.png in Resources */,
 				633973251F4B09F50038C45E /* Easy Button.png in Resources */,
 				6339732A1F4B09F50038C45E /* Music On Button.png in Resources */,
+				633973521F4CFA090038C45E /* MainMenu.sks in Resources */,
 				633973391F4B2C970038C45E /* Player.atlas in Resources */,
 				633973481F4B2EFF0038C45E /* Player 6.png in Resources */,
 				6339732C1F4B09F50038C45E /* Quit Button.png in Resources */,
@@ -611,6 +618,7 @@
 				633973371F4B15090038C45E /* Player.swift in Sources */,
 				633973501F4B6B170038C45E /* CloudController.swift in Sources */,
 				6339728B1F4B09090038C45E /* AppDelegate.swift in Sources */,
+				633973541F4D027E0038C45E /* MainMenuScene.swift in Sources */,
 				6339734D1F4B56A40038C45E /* BGClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
