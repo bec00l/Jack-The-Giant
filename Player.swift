@@ -26,7 +26,7 @@ class Player  : SKSpriteNode {
             self.position.x -= 7
         }
         else {
-            self.position.x -= 7
+            self.position.x += 7
         }
     }
     
