@@ -18,11 +18,14 @@ class CollectablesController {
                 collectable.name = "Life"
                 collectable.physicsBody = SKPhysicsBody(rectangleOf: collectable.size)
             }
-            else{
-                collectable = SKSpriteNode(imageNamed: "Coin")
-                collectable.name = "Coin"
-                collectable.physicsBody = SKPhysicsBody(circleOfRadius: collectable.size.height / 2)
+            else {
+                collectable.name = "Empty"
             }
+        }
+        else{
+            collectable = SKSpriteNode(imageNamed: "Coin")
+            collectable.name = "Coin"
+            collectable.physicsBody = SKPhysicsBody(circleOfRadius: collectable.size.height / 2)
         }
         
         collectable.physicsBody?.affectedByGravity = false

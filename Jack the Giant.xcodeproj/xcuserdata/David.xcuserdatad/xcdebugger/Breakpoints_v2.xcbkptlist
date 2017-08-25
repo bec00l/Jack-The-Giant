@@ -119,12 +119,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GameplayScene.swift"
-            timestampString = "525317709.361904"
+            timestampString = "525321789.312106"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "touchesBegan(_:with:)"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "checkForChildrenOutOfScreen()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
