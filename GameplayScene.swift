@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class GameplayScene : SKScene {
+class GameplayScene : SKScene, SKPhysicsContactDelegate {
     var cloudsController = CloudController()
     var player : Player?
     var mainCamera : SKCameraNode?
@@ -35,6 +35,29 @@ class GameplayScene : SKScene {
         moveCamera()
         manageBackgrounds()
         createNewClouds()
+        player?.setScore()
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        var firstBody = SKPhysicsBody()
+        var secondBody = SKPhysicsBody()
+        
+        if contact.bodyA.node?.name == "Player" {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else{
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        if firstBody.node?.name == "Player" && secondBody.node?.name == "Life" {
+            secondBody.node?.removeFromParent()
+            GamePlayController.instance.incrementLife()
+        } else if firstBody.node?.name == "Player" && secondBody.node?.name == "Coin" {
+            secondBody.node?.removeFromParent()
+            GamePlayController.instance.incrementCoin()
+        } else if firstBody.node?.name == "Player" && secondBody.node?.name == "DarkCloud" {
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -80,15 +103,24 @@ class GameplayScene : SKScene {
     }
     
     func initializeVariables()  {
+        physicsWorld.contactDelegate = self
         center = (self.scene?.size.width)! / (self.scene?.size.height)!
         player = self.childNode(withName: "Player") as! Player!
         player?.initializePlayerAndAnimations()
         mainCamera = self.childNode(withName: "Main Camera") as? SKCameraNode
         getBackgrounds()
+        getLabels()
+        GamePlayController.instance.initializeVariables()
         cloudsController.arrangeCloudsInScene(scence: self.scene!, distanceBetweenClouds: distanceBetweenClouds, center: center!, minX: minX, maxX: maxX, initialClouds: true)
         
         
         cameraDistanceForCreatingNewClouds = (mainCamera?.position.y)! - 400
+    }
+    
+    func getLabels() {
+        GamePlayController.instance.coinText = self.mainCamera!.childNode(withName: "CoinText") as!SKLabelNode!
+        GamePlayController.instance.scoreText = self.mainCamera!.childNode(withName: "ScoreText") as!SKLabelNode!
+        GamePlayController.instance.lifeText = self.mainCamera!.childNode(withName: "LifeText") as!SKLabelNode!
     }
     
     func getBackgrounds() {
