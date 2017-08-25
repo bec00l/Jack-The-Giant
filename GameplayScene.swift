@@ -18,6 +18,8 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
     var distanceBetweenClouds = CGFloat(240)
     let minX = CGFloat(-160)
     let maxX = CGFloat(160)
+    let playerMinX = CGFloat(-214.0)
+    let playerMaxX = CGFloat(214.0)
     var bg1 : BGClass?
     var bg2 : BGClass?
     var bg3 : BGClass?
@@ -143,6 +145,20 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         if canMove {
             player?.movePlayer(moveLeft: moveLeft)
         }
+        
+        if (player?.position.y)! - (player?.size.height)! * 3.7  > (mainCamera?.position.y)! {
+            self.scene?.isPaused = true
+        }
+        
+        if (player?.position.x)! > playerMaxX {
+            player?.position.x = playerMaxX
+        }
+        
+        if (player?.position.x)! < playerMinX {
+            player?.position.x = playerMinX
+        }
+        
+        
     }
     
     func createNewClouds () {
@@ -151,6 +167,8 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
             
             cloudsController.arrangeCloudsInScene(scence: self.scene!, distanceBetweenClouds: distanceBetweenClouds, center: center!, minX: minX, maxX: maxX, initialClouds: false)
         }
+        
+        checkForChildrenOutOfScreen()
     }
     
     func createPausePanel() {
@@ -177,5 +195,17 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         pausePanel?.addChild(quitButton)
         
         self.mainCamera?.addChild(pausePanel!)
+    }
+    
+    func checkForChildrenOutOfScreen () {
+        for child in children {
+            if child.position.y > (mainCamera?.position.y)!  + (self.scene?.size.height)! {
+                let childName = child.name?.components(separatedBy: " ")
+                if !(childName?.contains("BG"))! {
+                    child.removeFromParent()
+                }
+                
+            }
+        }
     }
 }
