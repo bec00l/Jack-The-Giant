@@ -12,6 +12,7 @@ class CloudController {
     var lastCloudPositionY = CGFloat()
     let cloudHeightOffset : CGFloat =  6.0
     let cloudWidthOffset : CGFloat =  5.0
+    let collectableController = CollectablesController()
     
     func shuffle( cloudsArray : [SKSpriteNode]) -> [SKSpriteNode]{
         var cloudsArray = cloudsArray
@@ -115,6 +116,17 @@ class CloudController {
             }
             clouds[i].position = CGPoint(x : randomX , y: positionY)
             clouds[i].zPosition = 3
+            
+            if !initialClouds {
+                if (Int(randomBetweenNumbers(firstNumber: 0, secondNumber: 7)) >= 3){
+                    if clouds[i].name != "Dark Cloud" {
+                        let collectable = collectableController.getCollectables()
+                        collectable.position = CGPoint(x : clouds[i].position.x, y: clouds[i].position.y + 60)
+                        scence.addChild(collectable)
+                    }
+                    
+                }
+            }
             scence.addChild(clouds[i])
             positionY -= distanceBetweenClouds
             lastCloudPositionY = positionY
