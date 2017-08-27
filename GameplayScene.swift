@@ -57,17 +57,19 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         }
         
         if firstBody.node?.name == "Player" && secondBody.node?.name == "Life" {
+            self.run(SKAction.playSoundFileNamed("Life Sound.wav", waitForCompletion: false))
             secondBody.node?.removeFromParent()
             GamePlayController.instance.incrementLife()
         } else if firstBody.node?.name == "Player" && secondBody.node?.name == "Coin" {
+            self.run(SKAction.playSoundFileNamed("Coin Sound.wav", waitForCompletion: false))
             secondBody.node?.removeFromParent()
             GamePlayController.instance.incrementCoin()
         } else if firstBody.node?.name == "Player" && secondBody.node?.name == "Dark Cloud" {
             self.scene?.isPaused = true
-            GamePlayController.instance.lifeScore! -= 1
+            GamePlayController.instance.lifeScore -= 1
             
-            if GamePlayController.instance.lifeScore! >= 0 {
-                GamePlayController.instance.lifeText?.text = "x\(GamePlayController.instance.lifeScore!)"
+            if GamePlayController.instance.lifeScore >= 0 {
+                GamePlayController.instance.lifeText?.text = "x\(GamePlayController.instance.lifeScore)"
             } else {
                 //show end score panel
             }
@@ -87,15 +89,22 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            if self.scene?.isPaused == false {
-                if location.x > center! {
-                    moveLeft = false
-                    player?.animatePlayer(moveLeft: moveLeft)
+            
+            
+            if nodes(at: location)[0].name != "Pause" && nodes(at: location)[0].name != "Quit"
+                && nodes(at: location)[0].name != "Resume"
+            {
+                if self.scene?.isPaused == false {
+                    if location.x > center! {
+                        moveLeft = false
+                        player?.animatePlayer(moveLeft: moveLeft)
+                    }
+                    else {
+                        moveLeft = true
+                        player?.animatePlayer(moveLeft: moveLeft)
+                    }
                 }
-                else {
-                    moveLeft = true
-                    player?.animatePlayer(moveLeft: moveLeft)
-                }
+                
             }
             
             if nodes(at: location)[0].name == "Pause" {
@@ -134,7 +143,7 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         getBackgrounds()
         getLabels()
         GamePlayController.instance.initializeVariables()
-        cloudsController.arrangeCloudsInScene(scence: self.scene!, distanceBetweenClouds: distanceBetweenClouds, center: center!, minX: minX, maxX: maxX, initialClouds: true)
+        cloudsController.arrangeCloudsInScene(scence: self.scene!, distanceBetweenClouds: distanceBetweenClouds, center: center!, minX: minX, maxX: maxX, player: player!, initialClouds: true)
         
         
         cameraDistanceForCreatingNewClouds = (mainCamera?.position.y)! - 400
@@ -174,12 +183,13 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         
         if (player?.position.y)! - (player?.size.height)! * 3.7  > (mainCamera?.position.y)! {
             self.scene?.isPaused = true
-            GamePlayController.instance.lifeScore! -= 1
+            GamePlayController.instance.lifeScore -= 1
             
-            if GamePlayController.instance.lifeScore! >= 0 {
-                GamePlayController.instance.lifeText?.text = "x\(GamePlayController.instance.lifeScore!)"
+            if GamePlayController.instance.lifeScore >= 0 {
+                GamePlayController.instance.lifeText?.text = "x\(GamePlayController.instance.lifeScore)"
             } else {
                 //show end score panel
+                createEndScorePanel()
             }
             
             Timer.scheduledTimer(timeInterval: TimeInterval(2), target: self, selector: #selector(GameplayScene.playerDied), userInfo: nil, repeats: false)
@@ -187,12 +197,13 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         
         if (player?.position.y)! + (player?.size.height)! * 3.7  < (mainCamera?.position.y)! {
             self.scene?.isPaused = true
-            GamePlayController.instance.lifeScore! -= 1
+            GamePlayController.instance.lifeScore -= 1
             
-            if GamePlayController.instance.lifeScore! >= 0 {
-                GamePlayController.instance.lifeText?.text = "x\(GamePlayController.instance.lifeScore!)"
+            if GamePlayController.instance.lifeScore >= 0 {
+                GamePlayController.instance.lifeText?.text = "x\(GamePlayController.instance.lifeScore)"
             } else {
                 //show end score panel
+                createEndScorePanel()
             }
             
             Timer.scheduledTimer(timeInterval: TimeInterval(2), target: self, selector: #selector(GameplayScene.playerDied), userInfo: nil, repeats: false)
@@ -213,7 +224,7 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         if cameraDistanceForCreatingNewClouds > (mainCamera?.position.y)! {
             cameraDistanceForCreatingNewClouds = (mainCamera?.position.y)! - 400
             
-            cloudsController.arrangeCloudsInScene(scence: self.scene!, distanceBetweenClouds: distanceBetweenClouds, center: center!, minX: minX, maxX: maxX, initialClouds: false)
+            cloudsController.arrangeCloudsInScene(scence: self.scene!, distanceBetweenClouds: distanceBetweenClouds, center: center!, minX: minX, maxX: maxX, player: player!, initialClouds: false)
         }
         
         checkForChildrenOutOfScreen()
@@ -243,6 +254,37 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         pausePanel?.addChild(quitButton)
         
         self.mainCamera?.addChild(pausePanel!)
+    }
+    
+    func createEndScorePanel() {
+        let endScorePanel = SKSpriteNode(imageNamed: "Show Score")
+        let scoreLabel = SKLabelNode(fontNamed: "Blow")
+        let coinLabel = SKLabelNode(fontNamed: "Blow")
+        
+        endScorePanel.anchorPoint = CGPoint(x : 0.5, y : 0.5)
+        endScorePanel.xScale = 1.5
+        endScorePanel.yScale = 1.5
+        endScorePanel.zPosition = 4
+        endScorePanel.position = CGPoint(x: (self.mainCamera?.frame.size.width)! / 2, y: (self.mainCamera?.frame.size.height)! / 2)
+        
+        scoreLabel.fontSize = 50
+        coinLabel.fontSize = 50
+        
+        scoreLabel.zPosition = 7
+        coinLabel.zPosition = 7
+        
+        scoreLabel.text = "\(GamePlayController.instance.score)"
+        coinLabel.text = "\(GamePlayController.instance.coinScore)"
+        
+        
+        scoreLabel.position = CGPoint(x: endScorePanel.position.x - 60, y: endScorePanel.position.y + 10)
+        
+        coinLabel.position = CGPoint(x: endScorePanel.position.x - 60, y: endScorePanel.position.y - 105)
+        
+        endScorePanel.addChild(scoreLabel)
+        endScorePanel.addChild(coinLabel)
+        mainCamera?.addChild(endScorePanel)
+        
     }
     
     func checkForChildrenOutOfScreen () {
@@ -276,7 +318,7 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
     }
     
     func playerDied () {
-        if GamePlayController.instance.lifeScore! >= 0 {
+        if GamePlayController.instance.lifeScore >= 0 {
             GameManager.instance.gameRestartedPlayerDied = true
             
             let scene = GameplayScene(fileNamed: "GameplayScene")
@@ -290,36 +332,36 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
                 let highScore = GameManager.instance.getEasyDifficultyScore()
                 let coinScore = GameManager.instance.getEasyDifficultyCoinScore()
                 
-                if highScore < GamePlayController.instance.score! {
-                    GameManager.instance.setEasyDifficultyScore(easyDifficultyScore: GamePlayController.instance.score!)
+                if highScore < GamePlayController.instance.score {
+                    GameManager.instance.setEasyDifficultyScore(easyDifficultyScore: GamePlayController.instance.score)
                 }
                 
-                if coinScore < GamePlayController.instance.coinScore! {
-                    GameManager.instance.setEasyDifficultyCoinScore(easyDifficultyCoinScore: GamePlayController.instance.coinScore!)
+                if coinScore < GamePlayController.instance.coinScore {
+                    GameManager.instance.setEasyDifficultyCoinScore(easyDifficultyCoinScore: GamePlayController.instance.coinScore)
                 }
             }
             else if GameManager.instance.getMediumDifficulty() {
                 let highScore = GameManager.instance.getMediumDifficultyScore()
                 let coinScore = GameManager.instance.getMediumDifficultyCoinScore()
                 
-                if highScore < GamePlayController.instance.score! {
-                    GameManager.instance.setMediumDifficultyScore(mediumDifficultyScore: GamePlayController.instance.score!)
+                if highScore < GamePlayController.instance.score {
+                    GameManager.instance.setMediumDifficultyScore(mediumDifficultyScore: GamePlayController.instance.score)
                 }
                 
-                if coinScore < GamePlayController.instance.coinScore! {
-                    GameManager.instance.setMediumDifficultyCoinScore(mediumDifficultyCoinScore: GamePlayController.instance.coinScore!)
+                if coinScore < GamePlayController.instance.coinScore {
+                    GameManager.instance.setMediumDifficultyCoinScore(mediumDifficultyCoinScore: GamePlayController.instance.coinScore)
                 }
             }
             else if GameManager.instance.getHardDifficulty() {
                 let highScore = GameManager.instance.getHardDifficultyScore()
                 let coinScore = GameManager.instance.getHardDifficultyCoinScore()
                 
-                if highScore < GamePlayController.instance.score! {
-                    GameManager.instance.setHardDifficultyScore(hardDifficultyScore: GamePlayController.instance.score!)
+                if highScore < GamePlayController.instance.score {
+                    GameManager.instance.setHardDifficultyScore(hardDifficultyScore: GamePlayController.instance.score)
                 }
                 
-                if coinScore < GamePlayController.instance.coinScore! {
-                    GameManager.instance.setHardDifficultyCoinScore(hardDifficultyCoinScore: GamePlayController.instance.coinScore!)
+                if coinScore < GamePlayController.instance.coinScore {
+                    GameManager.instance.setHardDifficultyCoinScore(hardDifficultyCoinScore: GamePlayController.instance.coinScore)
                 }
             }
             

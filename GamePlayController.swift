@@ -17,9 +17,9 @@ class GamePlayController {
     var lifeText : SKLabelNode?
     var coinText : SKLabelNode?
     
-    var score : Int32?
-    var coinScore : Int32?
-    var lifeScore : Int32?
+    var score : Int32 = 0
+    var coinScore : Int32 = 0
+    var lifeScore : Int32 = 0
     
     private init () {
         
@@ -28,39 +28,40 @@ class GamePlayController {
     func initializeVariables() {
         if GameManager.instance.gameStartedFromMainMenu {
             GameManager.instance.gameStartedFromMainMenu = false
-            score = 0
+            score = -1
             coinScore = 0
             lifeScore = 2
             
-            scoreText?.text = "\(score!)"
-            coinText?.text = "x\(coinScore!)"
-            lifeText?.text = "x\(lifeScore!)"
+            scoreText?.text = "\(score)"
+            coinText?.text = "x\(coinScore)"
+            lifeText?.text = "x\(lifeScore)"
         }
         else if GameManager.instance.gameRestartedPlayerDied {
-            scoreText?.text = "\(score!)"
-            coinText?.text = "x\(coinScore!)"
-            lifeText?.text = "x\(lifeScore!)"
+            GameManager.instance.gameRestartedPlayerDied = false;
+            scoreText?.text = "\(score)"
+            coinText?.text = "x\(coinScore)"
+            lifeText?.text = "x\(lifeScore)"
         }
     }
     
     func incrementScore()  {
-        score! += 1
-        scoreText?.text = "\(score ?? 0)"
+        score += 1
+        scoreText?.text = "\(score)"
     }
     
     func incrementLife()  {
-        lifeScore! += 1
-        lifeText?.text = "x\(lifeScore ?? 2)"
-        score! += 300
-        scoreText?.text = "\(score ?? 0)"
+        lifeScore += lifeScore
+        lifeText?.text = "x\(lifeScore)"
+        score += 300
+        scoreText?.text = "\(score)"
         
     }
     
     func incrementCoin()  {
-        coinScore! += 1
-        coinText?.text = "x\(coinScore ?? 0)"
-        score! += 200
-        scoreText?.text = "\(score ?? 0)"
+        coinScore += 1
+        coinText?.text = "x\(coinScore)"
+        score += 200
+        scoreText?.text = "\(score)"
     }
     
 }

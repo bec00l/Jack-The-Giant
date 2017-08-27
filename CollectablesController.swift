@@ -13,7 +13,7 @@ class CollectablesController {
     func getCollectables() -> SKSpriteNode {
         var collectable = SKSpriteNode()
         if(Int(randomBetweenNumbers(firstNumber: 0, secondNumber: 7)) >= 4) {
-            if(GamePlayController.instance.lifeScore! < 2) {
+            if(GamePlayController.instance.lifeScore < 2) {
                 collectable = SKSpriteNode(imageNamed: "Life")
                 collectable.name = "Life"
                 collectable.physicsBody = SKPhysicsBody(rectangleOf: collectable.size)
