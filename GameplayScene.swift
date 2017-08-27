@@ -62,7 +62,20 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         } else if firstBody.node?.name == "Player" && secondBody.node?.name == "Coin" {
             secondBody.node?.removeFromParent()
             GamePlayController.instance.incrementCoin()
-        } else if firstBody.node?.name == "Player" && secondBody.node?.name == "DarkCloud" {
+        } else if firstBody.node?.name == "Player" && secondBody.node?.name == "Dark Cloud" {
+            self.scene?.isPaused = true
+            GamePlayController.instance.lifeScore! -= 1
+            
+            if GamePlayController.instance.lifeScore! >= 0 {
+                GamePlayController.instance.lifeText?.text = "x\(GamePlayController.instance.lifeScore!)"
+            } else {
+                //show end score panel
+            }
+            
+            firstBody.node?.removeFromParent()
+            Timer.scheduledTimer(timeInterval: TimeInterval(2), target: self, selector: #selector(GameplayScene.playerDied), userInfo: nil, repeats: false)
+            
+            
         }
     }
     
@@ -96,16 +109,20 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
             }
             
             if nodes(at: location)[0].name == "Quit" {
-                let scene = MainMenuScene(fileNamed: "MainMenu")
-                // Set the scale mode to scale to fit the window
-                scene?.scaleMode = .aspectFill
-                
-                // Present the scene
-                self.view?.presentScene(scene!, transition: SKTransition.doorsCloseHorizontal(withDuration: 1))
+                loadMainMenu()
             }
             
             canMove = true
         }
+    }
+    
+    func loadMainMenu () {
+        let scene = MainMenuScene(fileNamed: "MainMenu")
+        // Set the scale mode to scale to fit the window
+        scene?.scaleMode = .aspectFill
+        
+        // Present the scene
+        self.view?.presentScene(scene!, transition: SKTransition.doorsCloseHorizontal(withDuration: 1))
     }
     
     func initializeVariables()  {
@@ -157,6 +174,28 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         
         if (player?.position.y)! - (player?.size.height)! * 3.7  > (mainCamera?.position.y)! {
             self.scene?.isPaused = true
+            GamePlayController.instance.lifeScore! -= 1
+            
+            if GamePlayController.instance.lifeScore! >= 0 {
+                GamePlayController.instance.lifeText?.text = "x\(GamePlayController.instance.lifeScore!)"
+            } else {
+                //show end score panel
+            }
+            
+            Timer.scheduledTimer(timeInterval: TimeInterval(2), target: self, selector: #selector(GameplayScene.playerDied), userInfo: nil, repeats: false)
+        }
+        
+        if (player?.position.y)! + (player?.size.height)! * 3.7  < (mainCamera?.position.y)! {
+            self.scene?.isPaused = true
+            GamePlayController.instance.lifeScore! -= 1
+            
+            if GamePlayController.instance.lifeScore! >= 0 {
+                GamePlayController.instance.lifeText?.text = "x\(GamePlayController.instance.lifeScore!)"
+            } else {
+                //show end score panel
+            }
+            
+            Timer.scheduledTimer(timeInterval: TimeInterval(2), target: self, selector: #selector(GameplayScene.playerDied), userInfo: nil, repeats: false)
         }
         
         if (player?.position.x)! > playerMaxX {
@@ -233,6 +272,59 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
             accerleration = 0.003
             cameraSpeed = 2.5
             maxSpeed = 8
+        }
+    }
+    
+    func playerDied () {
+        if GamePlayController.instance.lifeScore! >= 0 {
+            GameManager.instance.gameRestartedPlayerDied = true
+            
+            let scene = GameplayScene(fileNamed: "GameplayScene")
+            // Set the scale mode to scale to fit the window
+            scene?.scaleMode = .aspectFill
+            
+            // Present the scene
+            self.view?.presentScene(scene!, transition: SKTransition.doorsCloseHorizontal(withDuration: 1))
+        } else {
+            if GameManager.instance.getEasyDifficulty() {
+                let highScore = GameManager.instance.getEasyDifficultyScore()
+                let coinScore = GameManager.instance.getEasyDifficultyCoinScore()
+                
+                if highScore < GamePlayController.instance.score! {
+                    GameManager.instance.setEasyDifficultyScore(easyDifficultyScore: GamePlayController.instance.score!)
+                }
+                
+                if coinScore < GamePlayController.instance.coinScore! {
+                    GameManager.instance.setEasyDifficultyCoinScore(easyDifficultyCoinScore: GamePlayController.instance.coinScore!)
+                }
+            }
+            else if GameManager.instance.getMediumDifficulty() {
+                let highScore = GameManager.instance.getMediumDifficultyScore()
+                let coinScore = GameManager.instance.getMediumDifficultyCoinScore()
+                
+                if highScore < GamePlayController.instance.score! {
+                    GameManager.instance.setMediumDifficultyScore(mediumDifficultyScore: GamePlayController.instance.score!)
+                }
+                
+                if coinScore < GamePlayController.instance.coinScore! {
+                    GameManager.instance.setMediumDifficultyCoinScore(mediumDifficultyCoinScore: GamePlayController.instance.coinScore!)
+                }
+            }
+            else if GameManager.instance.getHardDifficulty() {
+                let highScore = GameManager.instance.getHardDifficultyScore()
+                let coinScore = GameManager.instance.getHardDifficultyCoinScore()
+                
+                if highScore < GamePlayController.instance.score! {
+                    GameManager.instance.setHardDifficultyScore(hardDifficultyScore: GamePlayController.instance.score!)
+                }
+                
+                if coinScore < GamePlayController.instance.coinScore! {
+                    GameManager.instance.setHardDifficultyCoinScore(hardDifficultyCoinScore: GamePlayController.instance.coinScore!)
+                }
+            }
+            
+            GameManager.instance.saveData()
+            loadMainMenu()
         }
     }
 }
