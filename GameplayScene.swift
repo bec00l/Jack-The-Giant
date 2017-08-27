@@ -24,6 +24,10 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
     var bg2 : BGClass?
     var bg3 : BGClass?
     
+    private var accerleration = CGFloat()
+    private var cameraSpeed = CGFloat()
+    private var maxSpeed = CGFloat()
+    
     private var cameraDistanceForCreatingNewClouds =  CGFloat()
     private var pausePanel : SKSpriteNode?
     
@@ -117,6 +121,7 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
         
         
         cameraDistanceForCreatingNewClouds = (mainCamera?.position.y)! - 400
+        setCameraSpeed()
     }
     
     func getLabels() {
@@ -138,7 +143,11 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
     }
     
     func moveCamera(){
-        self.mainCamera?.position.y -= 3
+        cameraSpeed += accerleration
+        if cameraSpeed > maxSpeed {
+            cameraSpeed = maxSpeed
+        }
+        self.mainCamera?.position.y -= cameraSpeed
     }
     
     func managePlayer(){
@@ -206,6 +215,24 @@ class GameplayScene : SKScene, SKPhysicsContactDelegate {
                 }
                 
             }
+        }
+    }
+    
+    private func setCameraSpeed() {
+        if GameManager.instance.getEasyDifficulty() {
+            accerleration = 0.001
+            cameraSpeed = 1.5
+            maxSpeed = 4
+        }
+        else if GameManager.instance.getMediumDifficulty(){
+            accerleration = 0.002
+            cameraSpeed = 2.0
+            maxSpeed = 6
+        }
+        else if GameManager.instance.getHardDifficulty() {
+            accerleration = 0.003
+            cameraSpeed = 2.5
+            maxSpeed = 8
         }
     }
 }
