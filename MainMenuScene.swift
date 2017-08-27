@@ -14,6 +14,7 @@ class MainMenuScene : SKScene {
     var optionsButton : SKSpriteNode?
     var quitButton : SKSpriteNode?
     override func didMove(to view: SKView) {
+        GameManager.instance.initializeGameData()
         highScoreButton = self.childNode(withName: "HighScore") as? SKSpriteNode
         startGameButton = self.childNode(withName: "StartGame") as? SKSpriteNode
         optionsButton = self.childNode(withName: "Options") as? SKSpriteNode
