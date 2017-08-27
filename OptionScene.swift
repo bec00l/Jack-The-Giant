@@ -41,16 +41,20 @@ class OptionsScene: SKScene {
             if touchNodes[0].name == easyButton?.name {
                 sign?.position.y = (easyButton?.position.y)!
                 setDifficulty(difficulty: "easy")
+                runClickSound()
             }
             
             if touchNodes[0].name == mediumButton?.name {
                 sign?.position.y = (mediumButton?.position.y)!
                 setDifficulty(difficulty: "medium")
+                runClickSound()
             }
             
             if touchNodes[0].name == hardButton?.name {
                 sign?.position.y = (hardButton?.position.y)!
                 setDifficulty(difficulty: "hard")
+                runClickSound()
+                
             }
             
             sign?.zPosition = 4
@@ -74,6 +78,11 @@ class OptionsScene: SKScene {
         else if GameManager.instance.getHardDifficulty() {
             sign?.position.y = (hardButton?.position.y)!
         }
+    }
+    
+    func runClickSound()
+    {
+        self.run(SKAction.playSoundFileNamed("Click Sound.wav", waitForCompletion: false))
     }
     
     private func setDifficulty(difficulty : String){

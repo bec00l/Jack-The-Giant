@@ -81,7 +81,7 @@ class CloudController {
         return clouds
     }
     
-    func arrangeCloudsInScene( scence : SKScene,  distanceBetweenClouds: CGFloat,  center : CGFloat,  minX : CGFloat,  maxX : CGFloat,  initialClouds : Bool){
+    func arrangeCloudsInScene( scence : SKScene,  distanceBetweenClouds: CGFloat,  center : CGFloat,  minX : CGFloat,  maxX : CGFloat, player: Player, initialClouds : Bool){
         
         var clouds = createClouds()
         
@@ -130,6 +130,10 @@ class CloudController {
             scence.addChild(clouds[i])
             positionY -= distanceBetweenClouds
             lastCloudPositionY = positionY
+        }
+        
+        if initialClouds {
+            player.position = CGPoint(x: clouds[0].position.x, y: clouds[0].position.y + 9)
         }
     }
     

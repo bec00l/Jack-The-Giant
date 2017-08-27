@@ -108,7 +108,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "86"
             endingLineNumber = "86"
-            landmarkName = "arrangeCloudsInScene(scence:distanceBetweenClouds:center:minX:maxX:initialClouds:)"
+            landmarkName = "arrangeCloudsInScene(scence:distanceBetweenClouds:center:minX:maxX:player:initialClouds:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
