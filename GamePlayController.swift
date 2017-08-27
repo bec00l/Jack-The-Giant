@@ -17,9 +17,9 @@ class GamePlayController {
     var lifeText : SKLabelNode?
     var coinText : SKLabelNode?
     
-    var score : Int?
-    var coinScore : Int?
-    var lifeScore : Int?
+    var score : Int32?
+    var coinScore : Int32?
+    var lifeScore : Int32?
     
     private init () {
         
